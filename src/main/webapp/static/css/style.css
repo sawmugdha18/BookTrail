@@ -1,0 +1,2090 @@
+/* ==========================================================================
+   BOOKTRAIL — MOUNTAIN LITERARY CAFÉ DESIGN SYSTEM
+   Editorial magazine aesthetics, cozy mountain café ambience, modern usability
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & Theme Variables
+   -------------------------------------------------------------------------- */
+:root {
+    /* Light Theme (Café Morning Mist) */
+    --primary-forest: #233D32;
+    --primary-forest-hover: #192D25;
+    --primary-forest-rgb: 35, 61, 50;
+
+    --bg-main: #F5F0E6;
+    --espresso: #49362B;
+    --espresso-hover: #37281F;
+    --secondary-sage: #899681;
+    --secondary-sage-hover: #75836D;
+    --secondary-sage-subtle: #E8ECE6;
+    --secondary-sage-light: #F0F4EE;
+
+    --accent-terracotta: #C27D5B;
+    --accent-terracotta-hover: #B06E4D;
+    --accent-terracotta-subtle: #FAF1EC;
+    --accent-terracotta-rgb: 194, 125, 91;
+
+    --bg-mist: #DCE4E0;
+    --bg-mist-light: #EBF1EE;
+
+    --text-primary: #302F28;
+    --text-secondary: #57554C;
+    --text-muted: #726F65;
+    --text-inverse: #FAF7F2;
+
+    --border-color: #E1D8C9;
+    --border-subtle: #EAE3D5;
+    --border-sage: #CBD6C8;
+
+    --surface: #FFFCF6;
+    --surface-elevated: #FFFFFF;
+    --surface-sunken: #EDE7DC;
+
+    --badge-sage-bg: #E4EAE1;
+    --badge-sage-text: #233D32;
+    --badge-terracotta-bg: #FBEFE7;
+    --badge-terracotta-text: #965331;
+    --badge-gray-bg: #EAE5DC;
+    --badge-gray-text: #59564E;
+
+    --shadow-sm: 0 1px 3px rgba(35, 61, 50, 0.05), 0 1px 2px rgba(35, 61, 50, 0.04);
+    --shadow-md: 0 4px 14px rgba(35, 61, 50, 0.07), 0 2px 4px rgba(35, 61, 50, 0.03);
+    --shadow-lg: 0 12px 28px rgba(35, 61, 50, 0.09), 0 4px 10px rgba(35, 61, 50, 0.04);
+    --shadow-book: -4px 6px 16px rgba(45, 35, 25, 0.16), -1px 2px 4px rgba(45, 35, 25, 0.1);
+
+    --font-heading: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 22px;
+    --radius-full: 9999px;
+
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    --container-max: 1180px;
+    --header-height: 72px;
+}
+
+/* Dark Theme (Nocturnal Mountain Lodge) */
+[data-theme="dark"] {
+    --primary-forest: #899681;
+    --primary-forest-hover: #A3B09B;
+    --primary-forest-rgb: 137, 150, 129;
+
+    --bg-main: #17251F;
+    --espresso: #C27D5B;
+    --espresso-hover: #D29A73;
+    --secondary-sage: #A9B7A5;
+    --secondary-sage-hover: #C0CDBE;
+    --secondary-sage-subtle: #24362E;
+    --secondary-sage-light: #1E2E27;
+
+    --accent-terracotta: #D29A73;
+    --accent-terracotta-hover: #E0AC89;
+    --accent-terracotta-subtle: #362922;
+    --accent-terracotta-rgb: 210, 154, 115;
+
+    --bg-mist: #20332B;
+    --bg-mist-light: #263B32;
+
+    --text-primary: #F0E8D9;
+    --text-secondary: #C7D1C3;
+    --text-muted: #8E9C8A;
+    --text-inverse: #17251F;
+
+    --border-color: #405045;
+    --border-subtle: #314237;
+    --border-sage: #4E6354;
+
+    --surface: #22372D;
+    --surface-elevated: #2D4035;
+    --surface-sunken: #14201A;
+
+    --badge-sage-bg: #2B4035;
+    --badge-sage-text: #D8E5D5;
+    --badge-terracotta-bg: #402E24;
+    --badge-terracotta-text: #E5AC88;
+    --badge-gray-bg: #28372F;
+    --badge-gray-text: #B4C2B2;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+    --shadow-book: -4px 6px 18px rgba(0, 0, 0, 0.45), -1px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Global Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Focus outline for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent-terracotta);
+    outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography & Headings
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, .font-serif {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+h1 {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+}
+
+h2 {
+    font-size: clamp(1.5rem, 2.5vw, 1.95rem);
+    font-weight: 400;
+}
+
+h3 {
+    font-size: 1.35rem;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+p {
+    margin-bottom: 0.85rem;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+.text-terracotta {
+    color: var(--accent-terracotta);
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout Containers
+   -------------------------------------------------------------------------- */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.main-content {
+    flex: 1;
+    padding-bottom: 80px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Site Header & Navigation
+   -------------------------------------------------------------------------- */
+.site-header {
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    gap: 20px;
+}
+
+/* Wordmark & Brand */
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--primary-forest);
+    transition: transform var(--transition-fast);
+}
+
+.brand-logo:hover {
+    transform: translateY(-1px);
+}
+
+.brand-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background-color: var(--primary-forest);
+    color: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .brand-icon-box {
+    background-color: var(--accent-terracotta);
+    color: var(--bg-main);
+}
+
+.brand-text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: 1.55rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--primary-forest);
+}
+
+[data-theme="dark"] .brand-title {
+    color: var(--text-primary);
+}
+
+.brand-tagline {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+    background-color: var(--secondary-sage-subtle);
+}
+
+.nav-link.active {
+    color: var(--primary-forest);
+    background-color: var(--secondary-sage-subtle);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .nav-link.active {
+    color: var(--text-primary);
+    background-color: var(--surface-elevated);
+}
+
+/* Right Navigation Actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-elevated);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--secondary-sage-subtle);
+    color: var(--text-primary);
+    border-color: var(--secondary-sage);
+}
+
+.theme-toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+/* User Badge */
+.user-menu-wrap {
+    position: relative;
+}
+
+.user-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 12px 4px 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.user-badge:hover {
+    border-color: var(--secondary-sage);
+    box-shadow: var(--shadow-sm);
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-full);
+    background-color: var(--primary-forest);
+    color: #FAF7F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+[data-theme="dark"] .user-avatar {
+    background-color: var(--accent-terracotta);
+    color: #17251F;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-elevated);
+    color: var(--text-primary);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-lg);
+    z-index: 999;
+}
+
+.mobile-drawer.active {
+    display: block;
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 10px 14px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+}
+
+.mobile-nav-link.active {
+    background-color: var(--secondary-sage-subtle);
+    color: var(--primary-forest);
+}
+
+/* --------------------------------------------------------------------------
+   6. Buttons & Badges
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: var(--radius-full);
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.84rem;
+}
+
+.btn-lg {
+    padding: 13px 26px;
+    font-size: 1.02rem;
+}
+
+/* Button Variants */
+.btn-primary {
+    background-color: var(--primary-forest);
+    color: #FAF7F2;
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-forest-hover);
+    color: #FAF7F2;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: var(--accent-terracotta);
+    color: #17251F;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: var(--accent-terracotta-hover);
+    color: #17251F;
+}
+
+.btn-terracotta {
+    background-color: var(--accent-terracotta);
+    color: #FAF7F2;
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-terracotta:hover {
+    background-color: var(--accent-terracotta-hover);
+    color: #FAF7F2;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background-color: var(--surface-elevated);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-sage-subtle);
+    border-color: var(--secondary-sage);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.btn-subtle {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+}
+
+.btn-subtle:hover {
+    background-color: var(--surface-elevated);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.btn-danger {
+    background-color: #A33A3A;
+    color: #FAF7F2;
+    border: 1px solid transparent;
+}
+
+.btn-danger:hover {
+    background-color: #8C2F2F;
+    color: #FAF7F2;
+}
+
+/* Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+}
+
+.badge-sage {
+    background-color: var(--badge-sage-bg);
+    color: var(--badge-sage-text);
+}
+
+.badge-amber, .badge-terracotta {
+    background-color: var(--badge-terracotta-bg);
+    color: var(--badge-terracotta-text);
+}
+
+.badge-gray {
+    background-color: var(--badge-gray-bg);
+    color: var(--badge-gray-text);
+}
+
+/* --------------------------------------------------------------------------
+   7. Alert Messages (Flash feedback)
+   -------------------------------------------------------------------------- */
+.alert-box {
+    margin-top: 20px;
+    margin-bottom: 24px;
+}
+
+.alert {
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.92rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.alert-success {
+    background-color: #EBF3EE;
+    color: #215136;
+    border: 1px solid #C4DEC8;
+}
+
+[data-theme="dark"] .alert-success {
+    background-color: #1E3326;
+    color: #D3ECD7;
+    border-color: #2C4D38;
+}
+
+.alert-error {
+    background-color: #FDF0F0;
+    color: #8C2F2F;
+    border: 1px solid #F5C7C7;
+}
+
+[data-theme="dark"] .alert-error {
+    background-color: #381F1F;
+    color: #F8D1D1;
+    border-color: #593131;
+}
+
+.alert-warning {
+    background-color: #FCF5EB;
+    color: #8A5323;
+    border: 1px solid #F5DCBD;
+}
+
+[data-theme="dark"] .alert-warning {
+    background-color: #36291C;
+    color: #FCE1C2;
+    border-color: #57412A;
+}
+
+/* --------------------------------------------------------------------------
+   8. Cards & Structural Elements
+   -------------------------------------------------------------------------- */
+.card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-fast);
+}
+
+.card-elevated {
+    background-color: var(--surface-elevated);
+    box-shadow: var(--shadow-md);
+}
+
+.page-header {
+    margin-bottom: 36px;
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.2vw, 2.6rem);
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.page-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 680px;
+    line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   9. Mountain Café Hero Section (Home)
+   -------------------------------------------------------------------------- */
+.hero-section {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-top: 24px;
+    margin-bottom: 48px;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: brightness(0.92);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(23, 37, 31, 0.92) 0%,
+        rgba(23, 37, 31, 0.82) 48%,
+        rgba(23, 37, 31, 0.45) 85%,
+        rgba(23, 37, 31, 0.3) 100%
+    );
+}
+
+[data-theme="dark"] .hero-overlay {
+    background: linear-gradient(
+        90deg,
+        rgba(15, 23, 19, 0.95) 0%,
+        rgba(15, 23, 19, 0.88) 50%,
+        rgba(15, 23, 19, 0.55) 100%
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 50px;
+    max-width: 650px;
+    color: #FAF7F2;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    background-color: rgba(220, 228, 224, 0.18);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #EBF1EE;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.3rem, 4.2vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+.hero-copy {
+    font-size: 1.12rem;
+    line-height: 1.65;
+    color: #E2ECE5;
+    margin-bottom: 32px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hero-btn-primary {
+    background-color: var(--accent-terracotta);
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    padding: 13px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    box-shadow: 0 4px 16px rgba(194, 125, 91, 0.35);
+    transition: all var(--transition-fast);
+}
+
+.hero-btn-primary:hover {
+    background-color: var(--accent-terracotta-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(194, 125, 91, 0.45);
+}
+
+.hero-btn-secondary {
+    background-color: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 13px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+}
+
+.hero-btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   10. Featured Books Showcase (Section 5.B)
+   -------------------------------------------------------------------------- */
+.section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 1.85rem;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.section-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.featured-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+    margin-bottom: 56px;
+}
+
+.featured-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast);
+}
+
+.featured-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--secondary-sage);
+}
+
+.featured-cover-wrap {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-book);
+    background-color: var(--bg-mist);
+}
+
+.featured-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-smooth);
+}
+
+.featured-card:hover .featured-cover-img {
+    transform: scale(1.04);
+}
+
+.featured-genre-pill {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(35, 61, 50, 0.85);
+    backdrop-filter: blur(6px);
+    color: #FAF7F2;
+    padding: 3px 9px;
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* --------------------------------------------------------------------------
+   11. Discover by Mood & Genre (Café Menu Board)
+   -------------------------------------------------------------------------- */
+.mood-board {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-sm);
+}
+
+.mood-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.mood-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.mood-pill:hover {
+    background-color: var(--secondary-sage-subtle);
+    border-color: var(--secondary-sage);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.mood-pill.active {
+    background-color: var(--primary-forest);
+    color: #FAF7F2;
+    border-color: var(--primary-forest);
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .mood-pill.active {
+    background-color: var(--accent-terracotta);
+    color: #17251F;
+    border-color: var(--accent-terracotta);
+}
+
+/* --------------------------------------------------------------------------
+   12. Filter & Search Controls Bar
+   -------------------------------------------------------------------------- */
+.filter-bar {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.filter-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 16px 10px 42px;
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.search-input:focus {
+    border-color: var(--accent-terracotta);
+    box-shadow: 0 0 0 3px rgba(var(--accent-terracotta-rgb), 0.15);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.sort-select {
+    padding: 9px 16px;
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: border-color var(--transition-fast);
+}
+
+.sort-select:focus {
+    border-color: var(--accent-terracotta);
+}
+
+/* --------------------------------------------------------------------------
+   13. Catalog Book Grid
+   -------------------------------------------------------------------------- */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 28px;
+    margin-bottom: 48px;
+}
+
+.book-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast);
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary-sage);
+}
+
+.book-card-top {
+    position: relative;
+    padding: 24px 24px 0 24px;
+    background: linear-gradient(180deg, var(--bg-mist) 0%, transparent 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.book-cover-link {
+    display: block;
+    width: 140px;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-book);
+    transform: perspective(600px) rotateY(-4deg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.book-card:hover .book-cover-link {
+    transform: perspective(600px) rotateY(0deg) scale(1.03);
+    box-shadow: -6px 10px 24px rgba(35, 45, 40, 0.2);
+}
+
+.book-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-card-body {
+    padding: 20px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-genre-tag {
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-terracotta);
+    margin-bottom: 6px;
+}
+
+.book-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.38rem;
+    line-height: 1.25;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.book-card-title a:hover {
+    color: var(--accent-terracotta);
+}
+
+.book-card-author {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.book-card-synopsis {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.book-card-meta {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.book-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #D48806;
+    font-weight: 600;
+}
+
+.book-card-footer {
+    padding: 14px 24px;
+    background-color: var(--surface-elevated);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   14. The Reading Corner / Communal Table (Section 5.D)
+   -------------------------------------------------------------------------- */
+.reading-corner-section {
+    margin-top: 56px;
+    margin-bottom: 56px;
+}
+
+.reading-corner-banner {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+}
+
+.reading-corner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+}
+
+.reading-corner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(23, 37, 31, 0.92) 0%,
+        rgba(23, 37, 31, 0.78) 55%,
+        rgba(23, 37, 31, 0.4) 100%
+    );
+}
+
+.reading-corner-banner-content {
+    position: relative;
+    z-index: 2;
+    padding: 36px 40px;
+    color: #FAF7F2;
+    max-width: 640px;
+}
+
+.reading-corner-banner-content h2 {
+    color: #FFFFFF;
+    font-size: 1.85rem;
+    margin-bottom: 8px;
+}
+
+.reading-corner-banner-content p {
+    color: #E2ECE5;
+    font-size: 0.98rem;
+}
+
+.discussions-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.discussion-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.discussion-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--secondary-sage);
+    box-shadow: var(--shadow-md);
+}
+
+.discussion-book-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.discussion-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.discussion-card-title a:hover {
+    color: var(--accent-terracotta);
+}
+
+.discussion-card-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 18px;
+    flex: 1;
+}
+
+.discussion-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   15. Community Invitation / Spoiler-Safe Philosophy (Section 5.E)
+   -------------------------------------------------------------------------- */
+.invitation-banner {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 44px 48px;
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.invitation-banner::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: var(--accent-terracotta);
+}
+
+.invitation-left h2 {
+    font-size: 2.1rem;
+    margin-bottom: 14px;
+}
+
+.invitation-left p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 24px;
+}
+
+.invitation-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feature-point {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.feature-icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background-color: var(--secondary-sage-subtle);
+    color: var(--primary-forest);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .feature-icon-badge {
+    color: var(--accent-terracotta);
+    background-color: var(--surface-elevated);
+}
+
+.feature-point h4 {
+    font-size: 1.05rem;
+    margin-bottom: 3px;
+}
+
+.feature-point p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   16. Dedicated Book Detail Page (Section 7)
+   -------------------------------------------------------------------------- */
+.book-detail-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 48px;
+    margin-top: 24px;
+    margin-bottom: 48px;
+}
+
+.book-detail-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.book-detail-cover {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-book);
+    background-color: var(--bg-mist);
+}
+
+.book-detail-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reading-status-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.reading-status-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.book-detail-main {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.book-header-section {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 28px;
+}
+
+.book-header-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 3.8vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+
+.book-header-author {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+}
+
+.book-metadata-pills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.book-synopsis-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text-primary);
+}
+
+/* Chapter rooms list inside book detail */
+.book-rooms-section {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+}
+
+.book-rooms-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.book-rooms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.book-room-item {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.book-room-item:hover {
+    transform: translateX(4px);
+    border-color: var(--secondary-sage);
+}
+
+/* Reviews list in book detail */
+.reviews-section {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+}
+
+.review-card {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.review-card:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.review-stars {
+    color: #D48806;
+    letter-spacing: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   17. My Bookshelf View (Section 8)
+   -------------------------------------------------------------------------- */
+.shelf-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 36px;
+}
+
+.metric-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--primary-forest);
+}
+
+[data-theme="dark"] .metric-value {
+    color: var(--accent-terracotta);
+}
+
+.shelf-tabs-nav {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 14px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+}
+
+.shelf-tab-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: var(--radius-full);
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+}
+
+.shelf-tab-link:hover {
+    background-color: var(--secondary-sage-subtle);
+    color: var(--text-primary);
+}
+
+.shelf-tab-link.active {
+    background-color: var(--primary-forest);
+    color: #FAF7F2;
+    border-color: var(--primary-forest);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .shelf-tab-link.active {
+    background-color: var(--accent-terracotta);
+    color: #17251F;
+    border-color: var(--accent-terracotta);
+}
+
+.shelf-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.shelf-item-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition-fast);
+}
+
+.shelf-item-card:hover {
+    border-color: var(--secondary-sage);
+}
+
+.shelf-item-cover {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-book);
+}
+
+.shelf-item-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.shelf-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.shelf-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.shelf-progress-box {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--accent-terracotta);
+    border-radius: var(--radius-full);
+    transition: width 0.4s ease;
+}
+
+.shelf-controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   18. Spoiler-Safe Chapter Discussions & Room Gate (Section 10)
+   -------------------------------------------------------------------------- */
+.spoiler-gate-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 48px 36px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    max-width: 680px;
+    margin: 40px auto;
+}
+
+.spoiler-shield-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    background-color: var(--badge-terracotta-bg);
+    color: var(--accent-terracotta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.spoiler-shield-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.spoiler-gate-title {
+    font-size: 1.85rem;
+    margin-bottom: 12px;
+}
+
+.spoiler-gate-msg {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 28px;
+}
+
+.spoiler-gate-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Post stream in room */
+.post-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.post-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 14px;
+}
+
+.post-author-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.post-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+}
+
+.post-body {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.replies-thread {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    margin-top: 16px;
+}
+
+.reply-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.reply-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   19. Authentication Views (Section 11)
+   -------------------------------------------------------------------------- */
+.auth-wrapper {
+    min-height: calc(100vh - var(--header-height) - 180px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.auth-header h1 {
+    font-size: 2.1rem;
+    margin-bottom: 6px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 11px 16px;
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus {
+    border-color: var(--accent-terracotta);
+    box-shadow: 0 0 0 3px rgba(var(--accent-terracotta-rgb), 0.15);
+}
+
+.password-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrap .form-control {
+    padding-right: 44px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.password-toggle-btn:hover {
+    color: var(--text-primary);
+}
+
+.demo-account-hint {
+    background-color: var(--secondary-sage-subtle);
+    border: 1px dashed var(--border-sage);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-top: 24px;
+    font-size: 0.84rem;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.auth-footer a {
+    color: var(--accent-terracotta);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   20. Site Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+    background-color: var(--surface);
+    border-top: 1px solid var(--border-color);
+    padding: 56px 0 36px;
+    margin-top: auto;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    max-width: 320px;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+.footer-heading {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.footer-links-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links-list a {
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+}
+
+.footer-links-list a:hover {
+    color: var(--accent-terracotta);
+}
+
+.footer-bottom {
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   21. Empty State Component
+   -------------------------------------------------------------------------- */
+.empty-state {
+    text-align: center;
+    padding: 56px 24px;
+    background-color: var(--surface);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-xl);
+    max-width: 580px;
+    margin: 40px auto;
+}
+
+.empty-state-icon {
+    font-size: 2.8rem;
+    margin-bottom: 14px;
+    color: var(--secondary-sage);
+}
+
+.empty-state-title {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.empty-state-desc {
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   22. Responsive Adjustments
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    .invitation-banner {
+        grid-template-columns: 1fr;
+        padding: 36px 30px;
+    }
+
+    .book-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .book-detail-sidebar {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .hero-section {
+        min-height: 420px;
+        margin-top: 16px;
+    }
+
+    .hero-content {
+        padding: 40px 24px;
+    }
+
+    .hero-title {
+        font-size: 2.1rem;
+    }
+
+    .shelf-item-card {
+        grid-template-columns: 1fr;
+    }
+
+    .shelf-item-cover {
+        max-width: 140px;
+        margin: 0 auto;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
