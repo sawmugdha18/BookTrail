@@ -44,25 +44,41 @@ public class DBConnection {
     }
 
     private static void loadProperties() {
-        try (InputStream input = DBConnection.class.getClassLoader().getResourceAsStream("db.properties")) {
-            Properties prop = new Properties();
-            if (input != null) {
-                prop.load(input);
-                mysqlDriver = prop.getProperty("db.driver", "com.mysql.cj.jdbc.Driver");
-                mysqlUrl = prop.getProperty("db.url", "jdbc:mysql://localhost:3306/booktrail_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
-                mysqlUser = prop.getProperty("db.user", "root");
-                mysqlPassword = prop.getProperty("db.password", "root");
-                fallbackEnabled = Boolean.parseBoolean(prop.getProperty("db.fallback.enabled", "true"));
-            } else {
-                mysqlDriver = "com.mysql.cj.jdbc.Driver";
-                mysqlUrl = "jdbc:mysql://localhost:3306/booktrail_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-                mysqlUser = "root";
-                mysqlPassword = "root";
-            }
-        } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to load db.properties, using defaults.", e);
+    Properties prop = new Properties();
+
+    try (InputStream input = DBConnection.class.getClassLoader()
+            .getResourceAsStream("db.properties")) {
+
+        if (input != null) {
+            prop.load(input);
         }
+
+        mysqlDriver = System.getenv().getOrDefault(
+                "DB_DRIVER",
+                prop.getProperty("db.driver", "com.mysql.cj.jdbc.Driver"));
+
+        mysqlUrl = System.getenv().getOrDefault(
+                "DB_URL",
+                prop.getProperty("db.url", ""));
+
+        mysqlUser = System.getenv().getOrDefault(
+                "DB_USER",
+                prop.getProperty("db.user", "root"));
+
+        mysqlPassword = System.getenv().getOrDefault(
+                "DB_PASSWORD",
+                prop.getProperty("db.password", "root"));
+
+        fallbackEnabled = Boolean.parseBoolean(
+                System.getenv().getOrDefault(
+                        "DB_FALLBACK_ENABLED",
+                        prop.getProperty("db.fallback.enabled", "true")));
+
+    } catch (Exception e) {
+        LOGGER.log(Level.WARNING,
+                "Failed to load database properties.", e);
     }
+}
 
     private static synchronized void initDatabase() {
         if (initialized) return;
